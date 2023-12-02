@@ -4,7 +4,6 @@ import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.domain.posts.PostsRepository;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDto;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -89,11 +88,9 @@ class PostsApiControllerTest {
 
         String url = "http://localhost:"+port+"/api/v1/posts/"+updateId;
 
-        HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
-
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(
-                url, HttpMethod.PUT, requestEntity, Long.class
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(
+                url, requestDto, Long.class
         );
 
         //then
